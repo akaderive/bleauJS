@@ -1,0 +1,31 @@
+<section class="mainbar">
+    <section class="matter">
+        <div class="container">
+            <div class="row">
+                <div class="widget wviolet">
+                    <div ht-widget-header title="{{vm.title}}"></div>
+                    <div class="widget-content user">
+                        <label>Search in areas:</label> <input ng-model="searchAreas" placeholder="Look for an area"> 
+                        <label>Search in boulders:</label> <input ng-model="searchBoulders" placeholder="Look for a boulder">
+                            <!--property to filter empty area ng-show="filteredBoulders.length" -->
+                            <div ng-repeat="area in vm.areas | filter:{ AREANAME: searchAreas }" ng-show="filteredBoulders.length"> 
+                            <!-- <button type="button" ng-class="(filteredBoulders.length==0) ? 'btn btn-warning' : 'btn btn-info'"> -->
+                            <button type="button" ng-class="{0:'btn btn-warning', 1:'btn btn-success', '2':'btn btn-info'}[vm.getBtnState(filteredBoulders.length)]" ng-click="vm.clickArea($index)">
+                            {{filteredBoulders.length}}</button><b> {{area.AREANAME}} </b>
+                                <ul>
+                                    <div ng-repeat="boulder in filteredBoulders = (area.boulders | filter:{ NAME: searchBoulders})" ng-if="$parent.vm.showAreas[$parent.$index]"> 
+                                    <li>
+                                    <a ui-sref="boulder({boulderId: '{{boulder.id}}'})">{{boulder.NAME}}</a>
+                                    </li> 
+                                    </div>
+                                </ul>
+                            </div>
+                    </div>
+                    <div class="widget-foot">
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
