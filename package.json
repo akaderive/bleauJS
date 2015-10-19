@@ -12,6 +12,7 @@
     "body-parser": "^1.8.2",
     "express": "^4.9.3",
     "morgan": "^1.1.1",
+    "ngstorage": "^0.3.9",
     "serve-favicon": "^2.0.1",
     "sqlite3": "^3.1.0"
   },

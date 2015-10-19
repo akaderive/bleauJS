@@ -50,6 +50,7 @@
 
         function getAreas() {
             return dataservice.getAreas().then(function (data) {
+                console.log(data);
                 vm.areas = data;
                 var i;
                 for (i = 0; i < data.length; i++) {

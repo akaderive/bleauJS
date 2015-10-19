@@ -1,0 +1,11 @@
+TODO List
+
+- Nom de la page "boulder" dynamique selon le bloc
+- Données à charger depuis un service (fichier json dans un premier temps, puis mysql)
+- Animation slide entre areaList et Boulder
+- ordre alphabétique boulders
+- arealist: juste les zones et un "+" pour déplier les blocs? liens sur le nom de la zone?
+  Idée: petit compteur a coté du nom de la zone = nbr de blocs, se met a jours lorsque recherche!
+  Peut aussi servir de bouton pour déplier. DU coup, pas de suppresion des area vides lorsque recherche de blocs
+  utilisation d'un style dynamique pour les boutons (si 0 => rouge, si != 0 ET searchBoulder != "" =>vert?)
+  

@@ -41,53 +41,54 @@ function getPerson(req, res, next) {
 }
 
 function getAreas(req, res, next) {
-    db.all('    SELECT      B.areaname' +
-                ',           B.areaLink' +
-                ',           COUNT(B.ID) as count' +
-                'FROM        BOULDERS B' +
-                'WHERE       B.grade NOT LIKE "%1%"' +
-                'AND         B.grade NOT LIKE "%2%"' +
-                'AND         B.grade NOT LIKE "%3%"' +
-                'AND         B.grade NOT LIKE "%4%"' +
-                'AND         B.grade NOT LIKE "%5%"' +
-                'GROUP BY    B.areaname' +
-                ',           B.areaLink'
+    db.all('    SELECT      B.areaname\
+                ,           B.areaLink\
+                ,           COUNT(B.ID) as count\
+                FROM        BOULDERS B\
+                WHERE       B.grade NOT LIKE "%1%"\
+                AND         B.grade NOT LIKE "%2%"\
+                AND         B.grade NOT LIKE "%3%"\
+                AND         B.grade NOT LIKE "%4%"\
+                AND         B.grade NOT LIKE "%5%"\
+                GROUP BY    B.areaname\
+                ,           B.areaLink'
                 , function(err, rows) {
-                    var cpt = rows.length;
-                    var areas = rows;
-                    areas.forEach(function(area) {
-                        /*db.all('select count(*) from boulders', function(err, rows){
-                                                                                        areas.boulders = ["YOYO"];
-                                                                }
-                        );*/
-                        db.all('    SELECT      B.name' +
-                        ',           B.grade' +
-                        ',           B.climber' +
-                        ',           IFNULL(B.description, "") AS DESCRIPTION' +
-                        ',           B.detailTitle' +
-                        ',           B.detail' +
-                        'FROM        BOULDERS B' +
-                        'WHERE       B.grade NOT LIKE "%1%"' +
-                        'AND         B.grade NOT LIKE "%2%"' +
-                        'AND         B.grade NOT LIKE "%3%"' +
-                        'AND         B.grade NOT LIKE "%4%"' +
-                        'AND         B.grade NOT LIKE "%5%"' +
-                        'AND         B.name NOT LIKE "-"' +
-                        'AND         B.areaname = ?' +
-                        ',           area.AREANAME'
-                        ,   function(err, rows) {
-                                area.boulders = rows;
-                                finished();
-                            }
-                        );
+                    if (typeof rows === 'undefined') {
+                        console.log(err);
+                        res.status(200).send([]);
+                    } else {
+                        var cpt = rows.length;
+                        var areas = rows;
+                        areas.forEach(function(area) {
+                            db.all('    SELECT      B.name\
+                            ,           B.grade\
+                            ,           B.climber\
+                            ,           IFNULL(B.description, "") AS DESCRIPTION\
+                            ,           B.detailTitle\
+                            ,           B.detail\
+                            FROM        BOULDERS B\
+                            WHERE       B.grade NOT LIKE "%1%"\
+                            AND         B.grade NOT LIKE "%2%"\
+                            AND         B.grade NOT LIKE "%3%"\
+                            AND         B.grade NOT LIKE "%4%"\
+                            AND         B.grade NOT LIKE "%5%"\
+                            AND         B.name NOT LIKE "-"\
+                            AND         B.areaname = ?'
+                            ,           area.AREANAME
+                            ,   function(err, rows) {
+                                    area.boulders = rows;
+                                    finished();
+                                }
+                            );
 
-                        function finished() {
-                            cpt = cpt - 1;
-                            if (cpt === 0) {
-                                res.status(200).send(areas);
+                            function finished() {
+                                cpt = cpt - 1;
+                                if (cpt === 0) {
+                                    res.status(200).send(areas);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
     );
 }
