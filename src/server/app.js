@@ -51,17 +51,18 @@ db.serialize(function() {
                                                     boulder['grade'],
                                                     boulder['link'],
                                                     boulder['climber'],
-                                                    boulder['description'],
+                                                    boulder['desc'],
                                                     boulder['detailTitle'],
                                                     boulder['detail']
-                                                );
-        });
+        );
+    });
 
     db.run("SELECT COUNT(*) AS count FROM BOULDERS", function(err, row) {
         console.log("rows inserted: " + row.count);
     });*/
     db.close();
 });
+
 //End of DB stuff
 
 var express = require('express');

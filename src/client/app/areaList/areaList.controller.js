@@ -2,8 +2,8 @@
     'use strict';
 
     angular
-        //.module('app.areaList', ['ngStorage'])
-        .module('app.areaList')
+        .module('app.areaList', ['ngStorage'])
+        //.module('app.areaList')
         .controller('AreaListController', AreaListController);
 
     AreaListController.$inject = ['$q', 'logger', '$sessionStorage', '$scope', 'dataservice'];
